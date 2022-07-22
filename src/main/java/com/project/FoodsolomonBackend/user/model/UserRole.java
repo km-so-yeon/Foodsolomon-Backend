@@ -1,8 +1,8 @@
 package com.project.FoodsolomonBackend.user.model;
 
 public enum UserRole {
-    USER(Authority.USER),
-    ADMIN(Authority.ADMIN);
+    USER(Authority.USER), // 사용자 권한
+    ADMIN(Authority.ADMIN); // 관리자 권한
 
     private final String authority;
 

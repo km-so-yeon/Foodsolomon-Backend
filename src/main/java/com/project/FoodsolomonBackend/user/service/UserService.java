@@ -1,51 +1,42 @@
 package com.project.FoodsolomonBackend.user.service;
 
 
-import java.util.HashMap;
+import static com.project.FoodsolomonBackend.config.exception.BaseResponseStatus.FAILED_TO_REGISTER;
+import static com.project.FoodsolomonBackend.config.exception.BaseResponseStatus.POST_MEMBERS_DUPLICATED_EMAIL;
+
 import java.util.Optional;
 
 import javax.transaction.Transactional;
 
-import com.project.FoodsolomonBackend.user.dto.PostLoginReq;
-import com.project.FoodsolomonBackend.user.dto.PostLoginRes;
-import com.project.FoodsolomonBackend.user.repository.UserDao;
-import com.project.FoodsolomonBackend.utils.JwtService;
-import com.project.FoodsolomonBackend.utils.SHA256;
 import org.springframework.beans.factory.annotation.Autowired;
-
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
 import com.project.FoodsolomonBackend.config.exception.BaseException;
-import com.project.FoodsolomonBackend.user.dto.PostUserReq;
+import com.project.FoodsolomonBackend.user.dto.SignupRequestDto;
 import com.project.FoodsolomonBackend.user.model.User;
 import com.project.FoodsolomonBackend.user.repository.UserRepository;
-
-import static com.project.FoodsolomonBackend.config.exception.BaseResponseStatus.*;
 
 
 @Service
 @Transactional(rollbackOn = Exception.class)
 public class UserService {
 
-
+    private final PasswordEncoder passwordEncoder;
+    
     private final UserRepository userRepository;
 
-    private final JwtService jwtService;
-
-    private final UserDao userDao;
-
     @Autowired
-    public UserService(UserRepository userRepository, JwtService jwtService, UserDao userDao) {
+    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
-        this.jwtService = jwtService;
-        this.userDao = userDao;
+        this.passwordEncoder = passwordEncoder;
     }
-
 
     private static final String ADMIN_TOKEN = "fsdfsdfds!ds";
 
 
 
-    public int registerUser(PostUserReq requestDto) throws BaseException{
+    public int registerUser(SignupRequestDto requestDto) throws BaseException{
     	
     	
     	 String email = requestDto.getEmail();
@@ -66,9 +57,9 @@ public class UserService {
 
 
 // 패스워드 암호화
-        String password = new SHA256().encrypt(requestDto.getPassword());
+        String password = passwordEncoder.encode(requestDto.getPassword());
         String nickname = requestDto.getNickname();
-        String ageRange = requestDto.getAgeRange();
+        String birthday = requestDto.getBirthday();
         
         
 // 사용자 ROLE 확인
@@ -83,7 +74,7 @@ public class UserService {
             role_id = 2;
         }
 
-        User user = new User(email, password, nickname, ageRange, role_id);
+        User user = new User(email, password, nickname, birthday, role_id);
         user = userRepository.save(user);
         
         int result = 0;
@@ -97,49 +88,6 @@ public class UserService {
         
         return result;
         
-    }
-
-    // 로그인을 했을 때, 로그인 정보가 있는지. 유저 상태 확인.
-    public PostLoginRes login(PostLoginReq req) throws BaseException{
-
-
-        // 유저가 존재한 상황에서 비밀번호를 얻는다.
-        User user = userRepository.findByEmail(req.getEmail())
-                .orElseThrow(() -> new BaseException(INVALID_MEMBER));
-
-        boolean admin= (user.getRoleId() == 2);
-        
-        // 상태 확인
-        HashMap<String, String> statusMap = userDao.checkUserExists(user.getId());
-
-        String status = statusMap.get("status");
-
-        PostLoginRes result = new PostLoginRes(user.getId(), null, admin, status);
-        
-
-        String encryptPwd;
-
-        try {
-            // 입력 비밀번호 암호화
-            encryptPwd = new SHA256().encrypt(req.getPassword());
-        } catch (Exception ignored) { // exception을 무시할때 ignored로 표기한다.
-
-            throw new BaseException(PASSWORD_DECRYPTION_ERROR);
-        }
-
-        // 유효성 검사 3. 비밀번호 확인
-        if(user.getPassword().equals(encryptPwd)){
-
-            String jwt = jwtService.createJwt(user.getId());
-            result.setJwt(jwt);
-
-            return result;
-        }
-        else{
-
-            throw new BaseException(FAILED_TO_LOGIN);
-        }
-
     }
 
 
