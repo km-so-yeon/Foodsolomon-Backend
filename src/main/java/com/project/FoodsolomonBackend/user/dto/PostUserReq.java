@@ -5,14 +5,16 @@ import lombok.Setter;
 
 @Setter
 @Getter
-public class SignupRequestDto {
+public class PostUserReq {
     
 	private String email;
     private String password;
     
     private String nickname;
-    private String birthday;
+    private String ageRange;
     
     private boolean admin = false;
     private String adminToken = "";
+
+
 }
