@@ -84,6 +84,9 @@ public class UserService {
         }
 
         User user = new User(email, password, nickname, ageRange, role_id);
+
+        user.setLoginMethod("original");
+
         user = userRepository.save(user);
         
         int result = 0;
