@@ -1,10 +1,10 @@
-package com.project.FoodsolomonBackend.dto;
+package com.project.FoodsolomonBackend.bookmark.dto;
 
 import java.util.Date;
 
 import org.modelmapper.ModelMapper;
 
-import com.project.FoodsolomonBackend.entity.Bookmark;
+import com.project.FoodsolomonBackend.bookmark.entity.Bookmark;
 
 import lombok.Getter;
 import lombok.Setter;

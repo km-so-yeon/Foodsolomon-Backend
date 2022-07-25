@@ -1,4 +1,4 @@
-package com.project.FoodsolomonBackend.entity;
+package com.project.FoodsolomonBackend.bookmark.entity;
 
 import java.util.Date;
 
@@ -14,7 +14,7 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import com.project.FoodsolomonBackend.dto.BookmarkDto;
+import com.project.FoodsolomonBackend.bookmark.dto.BookmarkDto;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -29,7 +29,7 @@ public class Bookmark {
 
 	@Id
 	@Column(name="ID")
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
 	@Column(name="MEMBER_ID", nullable=false)
@@ -38,7 +38,7 @@ public class Bookmark {
 	@Column(name="RSTR_ID", nullable=false)
 	private Long rstrId;
 	
-	@Column(name="STATUS")
+	@Column(name="STATUS", nullable=false)
 	private String status;
 	
 	@CreatedDate

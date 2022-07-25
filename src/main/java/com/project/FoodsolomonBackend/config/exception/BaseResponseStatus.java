@@ -41,6 +41,7 @@ public enum BaseResponseStatus {
     POST_MEMBERS_EMPTY_PWD(false, 2020, "비밀번호 입력해주세요"),
     POST_MEMBERS_DIFFERENT_PWD(false, 2021, "비밀번호와 비밀번호 확인이 다릅니다."),
 
+    POST_BOOKMARK_EMPTY_MEMBER(false, 2022, "회원가입 후 북마크가 가능합니다."),
  
     /**
      * 3000 : Response 오류
