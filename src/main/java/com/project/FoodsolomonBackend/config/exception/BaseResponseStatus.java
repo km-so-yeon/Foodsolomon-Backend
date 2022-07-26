@@ -42,6 +42,8 @@ public enum BaseResponseStatus {
     POST_MEMBERS_DIFFERENT_PWD(false, 2021, "비밀번호와 비밀번호 확인이 다릅니다."),
 
     POST_BOOKMARK_EMPTY_MEMBER(false, 2022, "회원가입 후 북마크가 가능합니다."),
+    
+    POST_RSTRIMG_EMPTY_RSTR(false, 2023, "식당 정보 저장 후 메뉴 사진을 저장할 수 있습니다."),
  
     /**
      * 3000 : Response 오류
@@ -54,6 +56,8 @@ public enum BaseResponseStatus {
     // register
 
     FAILED_TO_REGISTER(false,3011, "회원가입에 실패했습니다."),
+    
+    FAILED_TO_FILEUPLOAD(false, 3012, "파일 업로드에 실패했습니다."),
 
 
 
