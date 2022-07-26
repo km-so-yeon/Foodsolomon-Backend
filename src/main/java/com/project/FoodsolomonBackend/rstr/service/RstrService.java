@@ -45,11 +45,8 @@ public class RstrService {
 			Rstr rstr = oRstr.get();
 			rstrFormDto = RstrFormDto.of(rstr);
 			
-			System.out.println("**** 이미지 찾기");
-			
 			List<RstrImg> rstrImgList = rstrImgRepository.findByRstrIdOrderByIdAsc(id);
 			
-			System.out.println("**** 이미지 리스트 조회 끝");
 			List<RstrImgDto> rstrImgDtoList = new ArrayList<>();
 			
 			for (RstrImg rstrImg : rstrImgList) {
