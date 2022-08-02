@@ -33,24 +33,37 @@ public class User {
     @Column(nullable = false)
     private String nickname;
     
-    @Column
-    private String birthday;
+    @Column(name = "age_range")
+    private String ageRange;
+
+    @Column(name = "login_method")
+    private String loginMethod;
 
 
     // enum이기 떄문에 user 혹은 admin만 들어올 수 있다.
     	// db에 저장될 때는 이 enum값으로 저장되는 것이 아니라  String으로 저장하라고 한다.
-    @Column(nullable = false)
-    private int role_id;
+    @Column(nullable = false, name = "role_id")
+    private int roleId;
 
 
-	public User(String email, String password, String nickname, String birthday, int role_id) {
+	public User(String email, String password, String nickname, String ageRange, int roleId) {
 
 		this.email = email;
 		this.password = password;
 		this.nickname = nickname;
-		this.birthday = birthday;
-		this.role_id = role_id;
+		this.ageRange = ageRange;
+		this.roleId = roleId;
 	}
+
+    public User(String email, String password, String nickname, String ageRange, int roleId, String loginMethod) {
+
+        this.email = email;
+        this.password = password;
+        this.nickname = nickname;
+        this.ageRange = ageRange;
+        this.roleId = roleId;
+        this.loginMethod = loginMethod;
+    }
     
  
 

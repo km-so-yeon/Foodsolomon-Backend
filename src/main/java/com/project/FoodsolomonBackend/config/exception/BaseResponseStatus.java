@@ -59,7 +59,8 @@ public enum BaseResponseStatus {
     
     FAILED_TO_FILEUPLOAD(false, 3012, "파일 업로드에 실패했습니다."),
 
-
+    // login
+    FAILED_TO_LOGIN(false,3016, "로그인에 실패했습니다."),
 
     /**
      * 4000 : Database, Server 오류
