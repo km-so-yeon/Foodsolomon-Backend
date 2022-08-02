@@ -134,7 +134,7 @@ public class KakaoUserService {
         return new KakaoUserInfoDto(id, nickname, email, ageRange);
     }
 
-    private User registerKakaoUserIfNeeded(KakaoUserInfoDto kakaoUserInfo) {
+    private User registerKakaoUserIfNeeded(KakaoUserInfoDto kakaoUserInfo) throws BaseException {
 
         String kakaoEmail = kakaoUserInfo.getEmail();
         User kakaoUser = userRepository.findByEmail(kakaoEmail)

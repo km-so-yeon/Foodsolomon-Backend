@@ -7,15 +7,19 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+import com.project.FoodsolomonBackend.common.model.BaseEntity;
+import com.project.FoodsolomonBackend.config.exception.BaseException;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import static com.project.FoodsolomonBackend.user.validator.UserValidator.validatedUserInput;
 
 @Setter
 @Getter // get 함수를 일괄적으로 만들어줍니다.
 @NoArgsConstructor // 기본 생성자를 만들어줍니다.
 @Entity(name = "MEMBER") // DB 테이블 역할을 합니다.
-public class User {
+public class User extends BaseEntity {
     // ID가 자동으로 생성 및 증가합니다.
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Id
@@ -46,16 +50,21 @@ public class User {
     private int roleId;
 
 
-	public User(String email, String password, String nickname, String ageRange, int roleId) {
+	public User(String email, String password, String nickname, String ageRange, int roleId) throws BaseException {
+
+        validatedUserInput(email, password, nickname, ageRange);
 
 		this.email = email;
 		this.password = password;
 		this.nickname = nickname;
 		this.ageRange = ageRange;
 		this.roleId = roleId;
+        this.setStatus("active");
 	}
 
-    public User(String email, String password, String nickname, String ageRange, int roleId, String loginMethod) {
+    public User(String email, String password, String nickname, String ageRange, int roleId, String loginMethod) throws BaseException {
+
+        validatedUserInput(email, password, nickname, ageRange);
 
         this.email = email;
         this.password = password;
@@ -63,6 +72,7 @@ public class User {
         this.ageRange = ageRange;
         this.roleId = roleId;
         this.loginMethod = loginMethod;
+        this.setStatus("active");
     }
     
  
