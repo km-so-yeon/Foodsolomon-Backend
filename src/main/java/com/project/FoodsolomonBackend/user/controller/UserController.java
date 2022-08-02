@@ -1,24 +1,26 @@
 package com.project.FoodsolomonBackend.user.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-
+import com.project.FoodsolomonBackend.config.exception.BaseException;
+import com.project.FoodsolomonBackend.config.exception.BaseResponse;
+import com.project.FoodsolomonBackend.config.exception.BaseResponseStatus;
 import com.project.FoodsolomonBackend.user.dto.PostLoginReq;
 import com.project.FoodsolomonBackend.user.dto.PostLoginRes;
-import com.project.FoodsolomonBackend.user.model.User;
+import com.project.FoodsolomonBackend.user.dto.PostUserReq;
 import com.project.FoodsolomonBackend.user.service.KakaoUserService;
+import com.project.FoodsolomonBackend.user.service.UserService;
+
+
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
-
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import com.project.FoodsolomonBackend.config.exception.BaseException;
-import com.project.FoodsolomonBackend.config.exception.BaseResponse;
-import com.project.FoodsolomonBackend.user.dto.PostUserReq;
-import com.project.FoodsolomonBackend.user.service.UserService;
+import static com.project.FoodsolomonBackend.config.exception.BaseResponseStatus.REQUEST_ERROR;
+import static com.project.FoodsolomonBackend.config.exception.BaseResponseStatus.TOO_LONG_VALUE;
+import static com.project.FoodsolomonBackend.utils.FormalValidationException.*;
 
 
 @RestController
@@ -38,7 +40,18 @@ public class UserController {
 
     @PostMapping("/signup")
     @ApiOperation(value = "회원가입", notes = "axios 방식, JSON request(application/json)로 로그인을 진행해주세요")
-    public BaseResponse<Integer> registerUser(@ApiParam(value= "회원가입 요청 객체", name = "PostUserReq") @RequestBody PostUserReq requestDto) {
+    public BaseResponse<Integer> registerUser(@ApiParam(value= "회원가입 요청 객체", name = "PostUserReq") @RequestBody PostUserReq requestDto) throws BaseException{
+
+        // null인지
+        if(hasRequestValue(requestDto))
+            return new BaseResponse<>(REQUEST_ERROR);
+
+        // empty 인지
+        if(isNotEmptyValue(requestDto))
+            return new BaseResponse<>(REQUEST_ERROR);
+
+        if(isNotTooLong(requestDto))
+            return new BaseResponse<>(TOO_LONG_VALUE);
 
     	int result = 0;
     	
@@ -56,11 +69,24 @@ public class UserController {
 
     @PostMapping("/login")
     @ApiOperation(value = "일반 로그인", notes = "axios 방식, JSON request(application/json)로 로그인을 진행해주세요")
-    public BaseResponse<PostLoginRes> login(@ApiParam(value= "로그인 요청 객체", name = "PostLoginReq") @RequestBody PostLoginReq req) {
-    
+    public BaseResponse<PostLoginRes> login(@ApiParam(value= "로그인 요청 객체", name = "PostLoginReq") @RequestBody PostLoginReq requestDto) throws BaseException{
+
+
+        // null인지
+        if(hasRequestValue(requestDto))
+            return new BaseResponse<>(REQUEST_ERROR);
+
+        // empty 인지
+        if(isNotEmptyValue(requestDto))
+            return new BaseResponse<>(REQUEST_ERROR);
+
+        if(isNotTooLong(requestDto))
+            return new BaseResponse<>(TOO_LONG_VALUE);
+
+
         try {
 
-            PostLoginRes result = userService.login(req);
+            PostLoginRes result = userService.login(requestDto);
 
             return new BaseResponse<>(result);
 
@@ -74,7 +100,7 @@ public class UserController {
     @GetMapping("/login/kakao")
     @ApiOperation(value = "카카오 로그인", notes = "진행 시, https://kauth.kakao.com/oauth/authorize?client_id=e320deaa188bb89bc7b062340050d0fc&redirect_uri=http://localhost:8181/user/login/kakao&response_type=code 링크 호출")
     @ApiImplicitParam(name = "code", value = "카카오 로그인 시, 발급받는 인가 코드", required = true, dataType = "String")
-    public BaseResponse<PostLoginRes> kakaoLogin(@RequestParam String code) throws JsonProcessingException {
+    public BaseResponse<PostLoginRes> kakaoLogin(@RequestParam String code) throws JsonProcessingException, BaseException {
         // authorizedCode: 카카오 서버로부터 받은 인가 코드
         // questString으로 넘김받은
 
