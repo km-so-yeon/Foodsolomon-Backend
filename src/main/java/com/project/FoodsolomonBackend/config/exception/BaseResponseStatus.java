@@ -30,9 +30,6 @@ public enum BaseResponseStatus {
     INVALID_MEMBER_JWT(false,2003,"권한이 없는 유저의 접근입니다."),
     INVALID_EMAIL(false, 2004, "이메일 형식을 확인해주세요."),
     INVALID_PWD(false,2005,"비밀번호 형식을 확인해주세요."),
-    INVALID_NICKNAME(false,2006,"닉네임 형식을 확인해주세요."),
-    TOO_LONG_VALUE(false,2007,"값이 너무 큽니다"),
-
 
 
 
@@ -43,9 +40,8 @@ public enum BaseResponseStatus {
     POST_MEMBERS_EMPTY_NAME(false, 2019, "닉네임을 입력해주세요"),
     POST_MEMBERS_EMPTY_PWD(false, 2020, "비밀번호 입력해주세요"),
     POST_MEMBERS_DIFFERENT_PWD(false, 2021, "비밀번호와 비밀번호 확인이 다릅니다."),
-    POST_MEMBERS_INVALID_AGE_RANGE(false, 2022, "유효한 연령대가 아닙니다."),
-    POST_MEMBERS_INVALID_LOGIN_METHOD(false, 2023, "유효한 로그인 방식이 아닙니다."),
 
+ 
     /**
      * 3000 : Response 오류
      */
