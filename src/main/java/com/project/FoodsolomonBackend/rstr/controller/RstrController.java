@@ -15,6 +15,7 @@ import com.project.FoodsolomonBackend.config.exception.BaseException;
 import com.project.FoodsolomonBackend.config.exception.BaseResponse;
 import com.project.FoodsolomonBackend.rstr.dto.RstrDto;
 import com.project.FoodsolomonBackend.rstr.dto.RstrFormDto;
+import com.project.FoodsolomonBackend.rstr.dto.RstrImgDto;
 import com.project.FoodsolomonBackend.rstr.service.RstrService;
 
 import lombok.RequiredArgsConstructor;
@@ -42,11 +43,11 @@ public class RstrController {
 	}
 	
 	@PostMapping(value="/rstrImg")
-	public BaseResponse<Integer> saveRstrImg(Long rstrId, @RequestParam("rstrImgFile") List<MultipartFile> rstrImgList) {
+	public BaseResponse<Integer> saveRstrImg(@RequestParam("rstrImgDtoList") List<RstrImgDto> rstrImgDtoList, @RequestParam("rstrImgFileList") List<MultipartFile> rstrImgFileList) {
 		
 		try {
 			
-			rstrService.saveRstrImg(rstrId, rstrImgList);
+			rstrService.saveRstrImg(rstrImgDtoList, rstrImgFileList);
 			
 		} catch(BaseException exception) {
 			

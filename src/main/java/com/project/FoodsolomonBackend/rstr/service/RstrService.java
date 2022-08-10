@@ -75,30 +75,30 @@ public class RstrService {
 		}
 	}
 	
-	public void saveRstrImg(Long rstrId, List<MultipartFile> rstrImgFileList) throws BaseException{
+	public void saveRstrImg(List<RstrImgDto> rstrImgDtoList, List<MultipartFile> rstrImgFileList) throws BaseException{
 		
+		Long rstrId = rstrImgDtoList.get(0).getRstrId();
 		Optional<Rstr> oRstr = rstrRepository.findById(rstrId);
 		
 		if (oRstr.isPresent()) {
 			
 			try {
 				
-				Rstr rstr = oRstr.get();
-				RstrFormDto rstrFormDto = RstrFormDto.of(rstr);
-				
-				List<Long> rstrImgIds = rstrFormDto.getRstrImgIds();
-				
-				for (int i = 0; i < rstrImgIds.size(); i++) {
-					rstrImgService.deleteRstrImg(rstrImgIds.get(i));
-				}
-				
-				for (MultipartFile rstrImgFile : rstrImgFileList) {
+				for (int i = 0; i < rstrImgDtoList.size(); i++) {
+					RstrImgDto rstrImgDto = rstrImgDtoList.get(i);
+					MultipartFile rstrImgFile = rstrImgFileList.get(i);
 					
-					RstrImg rstrImg = new RstrImg();
-					rstrImg.setRstrId(rstrId);
-					rstrImg.setStatus("Y");
-					
-					rstrImgService.saveRstrImg(rstrImg, rstrImgFile);
+					if (rstrImgDto.getStatus().equals("N")) {
+						
+						rstrImgService.deleteRstrImg(rstrImgDto.getId());
+						
+					} else if (rstrImgDto.getStatus().equals("Y")) {
+						
+						RstrImg rstrImg = rstrImgDto.createRstrImg();
+						
+						rstrImgService.saveRstrImg(rstrImg, rstrImgFile);
+						
+					}
 				}
 				
 			} catch (Exception e) {

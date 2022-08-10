@@ -3,7 +3,6 @@ package com.project.FoodsolomonBackend.rstr.dto;
 import java.util.Date;
 
 import org.modelmapper.ModelMapper;
-
 import com.project.FoodsolomonBackend.rstr.entity.RstrImg;
 
 import lombok.Getter;
@@ -25,6 +24,10 @@ public class RstrImgDto {
 	private Date updatedTime;
 	
 	private static ModelMapper modelMapper = new ModelMapper();
+	
+	public RstrImg createRstrImg() {
+		return modelMapper.map(this, RstrImg.class);
+	}
 	
 	public static RstrImgDto of(RstrImg rstrImg) {
 		return modelMapper.map(rstrImg, RstrImgDto.class);
