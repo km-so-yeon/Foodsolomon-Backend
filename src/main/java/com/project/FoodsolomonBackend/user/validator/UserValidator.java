@@ -23,7 +23,7 @@ public class UserValidator {
             throw new BaseException(INVALID_EMAIL);
         }
 
-        if (checkPhoneFormal(password)) {
+        if (checkPwdFormal(password)) {
             throw new BaseException(INVALID_PWD);
         }
 
