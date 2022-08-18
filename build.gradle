@@ -45,10 +45,11 @@ dependencies {
 	implementation 'io.springfox:springfox-swagger2:2.9.2'
 	implementation 'io.springfox:springfox-swagger-ui:2.9.2'
 	
-	
-	  // https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-thymeleaf
+	// https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-thymeleaf
     implementation 'org.springframework.boot:spring-boot-starter-thymeleaf:2.7.1'
 	
+	// model mapper
+	implementation group: 'org.modelmapper', name: 'modelmapper', version: '2.3.8'
 	
 }
 
