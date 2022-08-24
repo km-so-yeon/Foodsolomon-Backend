@@ -15,21 +15,21 @@ public class RstrFormDto {
 
 	private Long id;
 	
-	private String name;
+	private String placeName;
 	
 	private String phone;
 	
-	private String address;
+	private String addressName;
 	
-	private String roadAddress;
+	private String roadAddressName;
 	
-	private float latitue;
+	private float x;
 	
-	private float hardness;
+	private float y;
 	
-	private String categoryNm;
+	private String categoryName;
 	
-	private String plateUrl;
+	private String placeUrl;
 	
 	private String status;
 	
