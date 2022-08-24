@@ -21,26 +21,26 @@ public class Rstr {
 	@Column(name="ID", nullable=false)
 	private Long id;
 	
-	@Column(name="NAME", nullable=false)
-	private String name;
+	@Column(name="PLACE_NAME", nullable=false)
+	private String placeName;
 	
 	@Column(name="PHONE", nullable=false)
 	private String phone;
 	
-	@Column(name="ADDRESS")
-	private String address;
+	@Column(name="ADDRESS_NAME")
+	private String addressName;
 	
-	@Column(name="ROAD_ADDRESS")
-	private String roadAddress;
+	@Column(name="ROAD_ADDRESS_NAME")
+	private String roadAddressName;
 	
-	@Column(name="LATITUE", nullable=false)
-	private float latitue;
+	@Column(name="X", nullable=false)
+	private float x;
 	
-	@Column(name="HARDNESS", nullable=false)
-	private float hardness;
+	@Column(name="Y", nullable=false)
+	private float y;
 	
-	@Column(name="CATEGORY_NM", nullable=false)
-	private String categoryNm;
+	@Column(name="CATEGORY_NAME", nullable=false)
+	private String categoryName;
 	
 	@Column(name="PLACE_URL")
 	private String placeUrl;
@@ -49,14 +49,14 @@ public class Rstr {
 	private String status;
 	
 	public void updateRstr(RstrDto rstrDto) {
-		this.name = rstrDto.getName();
+		this.placeName = rstrDto.getPlaceName();
 		this.phone = rstrDto.getPhone();
-		this.address = rstrDto.getAddress();
-		this.roadAddress = rstrDto.getRoadAddress();
-		this.latitue = rstrDto.getLatitue();
-		this.hardness = rstrDto.getHardness();
-		this.categoryNm = rstrDto.getCategoryNm();
-		this.placeUrl = rstrDto.getPlateUrl();
+		this.addressName = rstrDto.getAddressName();
+		this.roadAddressName = rstrDto.getRoadAddressName();
+		this.x = rstrDto.getX();
+		this.y = rstrDto.getY();
+		this.categoryName = rstrDto.getCategoryName();
+		this.placeUrl = rstrDto.getPlaceUrl();
 		this.status = rstrDto.getStatus();
 	}
 }
