@@ -44,7 +44,9 @@ public enum BaseResponseStatus {
     POST_BOOKMARK_EMPTY_MEMBER(false, 2022, "회원가입 후 북마크가 가능합니다."),
     
     POST_RSTRIMG_EMPTY_RSTR(false, 2023, "식당 정보 저장 후 메뉴 사진을 저장할 수 있습니다."),
- 
+
+    POST_MEMBERS_PASSWORD_LENGTH(false, 2024, "비밀번호를 8~15자리로 만들어주세요."),
+
     /**
      * 3000 : Response 오류
      */
@@ -58,6 +60,10 @@ public enum BaseResponseStatus {
     FAILED_TO_REGISTER(false,3011, "회원가입에 실패했습니다."),
     
     FAILED_TO_FILEUPLOAD(false, 3012, "파일 업로드에 실패했습니다."),
+
+
+    INVALID_NICKNAME(false,3013, "유효하지않은 닉네임입니다."),
+    POST_MEMBERS_INVALID_AGE_RANGE(false,3014, "유효하지않은 연령대입니다."),
 
     // login
     FAILED_TO_LOGIN(false,3016, "로그인에 실패했습니다."),

@@ -134,7 +134,7 @@ public class KakaoUserService {
         return new KakaoUserInfoDto(id, nickname, email, ageRange);
     }
 
-    private User registerKakaoUserIfNeeded(KakaoUserInfoDto kakaoUserInfo) {
+    private User registerKakaoUserIfNeeded(KakaoUserInfoDto kakaoUserInfo) throws BaseException {
 
         String kakaoEmail = kakaoUserInfo.getEmail();
         User kakaoUser = userRepository.findByEmail(kakaoEmail)
@@ -169,7 +169,7 @@ public class KakaoUserService {
             String loginmethod = "kakao";
 
 
-           kakaoUser = new User(email, password, nickname, ageRange, role_id, loginmethod);
+           kakaoUser = new User(email, password, nickname, loginmethod);
 
 
 
@@ -191,7 +191,7 @@ public class KakaoUserService {
 
         String status = statusMap.get("status");
 
-        PostLoginRes res = new PostLoginRes(user.getId(), "", false, status);
+        PostLoginRes res = new PostLoginRes(user.getId(), "", status);
 
 
         try{
